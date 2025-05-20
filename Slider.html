@@ -11,7 +11,7 @@
 <body>
 <section class="container">
     <div class="slider-wrapper">
-        <div class="slider">
+        <div class="slider" id="slider">
             <img id="slide-1" src="MercuryPicture.jpg"  alt="Mercury Picture" />
             <img id="slide-2" src="VenusPicture.jpg" alt="Venus Picture" />
             <img id="slide-3" src="https://images.unsplash.com/photo-1656077217715-bdaeb06bd01f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" alt="Earth Picture" />
@@ -21,21 +21,41 @@
             <img id="slide-7" src="UranusPicture.avif"    alt="Uranus Picture" />
             <img id="slide-8" src="NeptunePicture.webp"     alt="Neptune Picture" />
         </div>
-        <div class="slider-nav">
-            <a href="#slide-1" ></a>
-            <a href="#slide-2" ></a>
-            <a href="#slide-3" ></a>
-            <a href="#slide-4" ></a>
-            <a href="#slide-5" ></a>
-            <a href="#slide-6" ></a>
-            <a href="#slide-7" ></a>
-            <a href="#slide-8" ></a>
-        </div>
         <div class="slider-caption">
             These are all planets of the Solar System!
         </div>
     </div>
 </section>
 <p class="credit">Created by Rayat Rahman</p>
+<script>
+    const slider = document.getElementById("slider");
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    // Auto-scroll logic
+    let slideInterval = setInterval(() => {
+        // Scroll by the width of one slide
+        const slideWidth = slider.clientWidth;
+        if (slider.scrollLeft + slideWidth >= slider.scrollWidth) {
+            slider.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+            slider.scrollBy({ left: slideWidth, behavior: "smooth" });
+        }
+    }, 3000); // Change slide every 3 seconds
+
+    // Optional: pause on hover
+    slider.addEventListener("mouseover", () => clearInterval(slideInterval));
+    slider.addEventListener("mouseout", () => {
+        slideInterval = setInterval(() => {
+            const slideWidth = slider.clientWidth;
+            if (slider.scrollLeft + slideWidth >= slider.scrollWidth) {
+                slider.scrollTo({ left: 0, behavior: "smooth" });
+            } else {
+                slider.scrollBy({ left: slideWidth, behavior: "smooth" });
+            }
+        }, 1000);
+    });
+</script>
 </body>
 </html>
